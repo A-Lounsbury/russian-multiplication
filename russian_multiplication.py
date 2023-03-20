@@ -1,4 +1,5 @@
 import math
+# multiplies two numbers
 def russian_multiply(x, y):
     # filling the two lists
     xNumbers = [x]
@@ -36,12 +37,21 @@ if 13 * 9 == russian_multiply(13, 9):
 print(russian_multiply(121, 398))
 if 121 * 398 == russian_multiply(121, 398):
     print("equal")
-    
+
+# converts a decimal number to a list of binary digits
+def decimalToBinary(n):
+    digits = []
+    while n >= 1:
+        digits.append(n % 2)
+        if n % 2 == 1:
+            n = int((n - 1) / 2)
+        elif n % 2 == 0:
+            n = int(n / 2)
+    return digits
+
 print()
-# only works for values of x that have two 1's in binary
+# multiplies two numbers
 def egyptian_multiply(x, y):
-    print("X: ",x)
-    print("Y: ",y)
     # filling the two lists
     xNumbers = []
     yNumbers = []
@@ -51,17 +61,15 @@ def egyptian_multiply(x, y):
         n = n * 2
     for n in xNumbers:
         yNumbers.append(n * y)
-    print(xNumbers)
-    print(yNumbers)
     
     # finding the two numbers that sum to x
-    for n in xNumbers:
-        for m in xNumbers:
-            if n + m == x:
-                index1 = xNumbers.index(n)
-                index2 = xNumbers.index(m)
-                break
-    return yNumbers[index1] + yNumbers[index2]
+    digits = decimalToBinary(x)
+    sum = 0
+    for i, d in enumerate(digits):
+        if d == 1:
+            sum += yNumbers[i]
+    
+    return sum
 
 print(egyptian_multiply(9, 13))
 if 9 * 13 == egyptian_multiply(9, 13):
@@ -75,5 +83,10 @@ print(egyptian_multiply(65, 93))
 if 65 * 93 == egyptian_multiply(65, 93):
     print("equal")
 
-# ERROR: can't compute all numbers that add to 93; there are 5 numbers, not two
-# print(egyptian_multiply(93, 65))
+print(egyptian_multiply(93, 65))
+if 93 * 65 == egyptian_multiply(93, 65):
+    print("equal")
+    
+print(egyptian_multiply(4368764, 32019))
+if 4368764 * 32019 == egyptian_multiply(4368764, 32019):
+    print("equal")
